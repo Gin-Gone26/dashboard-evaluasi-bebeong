@@ -5,17 +5,23 @@ from src.constants import EDUCATION_OPTIONS, LIKERT_OPTIONS, QUESTION_GROUPS
 from src.db import check_database_connection, init_database
 from src.repositories.survey_repository import DuplicateRespondentError, create_submission
 from src.utils.auth import initialize_auth_state, login, logout
-from src.utils.ui import apply_responsive_styles, render_database_error
+from src.utils.ui import (
+    apply_responsive_styles,
+    render_database_error,
+    render_public_footer,
+    render_public_header,
+)
 
 
 st.set_page_config(
     page_title="Dashboard TAM Bebeong",
     page_icon="📊",
     layout="wide",
+    initial_sidebar_state="collapsed",
 )
 
 initialize_auth_state()
-apply_responsive_styles()
+apply_responsive_styles(hide_page_navigation=True)
 st.session_state.setdefault("questionnaire_submitted", False)
 
 try:
@@ -55,18 +61,24 @@ if not ok:
     render_database_error(message)
     st.stop()
 
-st.title("Dashboard Evaluasi Penerimaan ASN terhadap Website Bebeong Kota Banjar")
-st.caption("Metode Technology Acceptance Model (TAM): PEOU, PU, dan BI")
-
-st.info(
-    "Silakan isi biodata dan kuesioner berikut. Jawaban menggunakan skala 1 sampai 5, "
-    "dari Sangat Tidak Setuju sampai Sangat Setuju."
+render_public_header()
+st.markdown(
+    """
+    <section class="survey-intro">
+        <strong>Petunjuk pengisian</strong><br>
+        Isi biodata dengan benar, kemudian pilih satu jawaban pada setiap pernyataan.
+        Skala jawaban adalah 1 (Sangat Tidak Setuju) sampai 5 (Sangat Setuju).
+        Waktu pengisian diperkirakan 5-7 menit.
+    </section>
+    """,
+    unsafe_allow_html=True,
 )
 
 if st.session_state["questionnaire_submitted"]:
     st.success(
         "Jawaban Anda sudah berhasil disimpan. Setiap ASN hanya dapat mengisi kuesioner satu kali."
     )
+    render_public_footer()
     st.stop()
 
 with st.form("asn_questionnaire_form"):
@@ -100,10 +112,24 @@ with st.form("asn_questionnaire_form"):
                 options=list(LIKERT_OPTIONS.keys()),
                 format_func=lambda value: LIKERT_OPTIONS[value],
                 horizontal=True,
+                index=None,
                 key=question_code,
             )
 
-    submitted = st.form_submit_button("Kirim Jawaban")
+    st.markdown(
+        """
+        <div class="privacy-note">
+            Data yang diberikan digunakan khusus untuk kepentingan penelitian dan
+            evaluasi layanan Website BEBEONG. Identitas responden tidak ditampilkan
+            pada laporan publik dan dikelola oleh peneliti serta administrator yang berwenang.
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    consent = st.checkbox(
+        "Saya telah membaca penjelasan di atas dan bersedia menjadi responden penelitian ini."
+    )
+    submitted = st.form_submit_button("Kirim Kuesioner", type="primary")
 
     if submitted:
         required_fields = [full_name, work_unit, position_name]
@@ -111,6 +137,10 @@ with st.form("asn_questionnaire_form"):
             st.error("Nama lengkap, unit kerja, dan jabatan wajib diisi.")
         elif not nip.strip().isdigit() or len(nip.strip()) != 18:
             st.error("NIP wajib terdiri dari tepat 18 digit angka.")
+        elif any(answer is None for answer in answers.values()):
+            st.error("Seluruh pertanyaan kuesioner wajib dijawab.")
+        elif not consent:
+            st.error("Persetujuan responden wajib dicentang sebelum kuesioner dikirim.")
         else:
             respondent = {
                 "full_name": full_name.strip(),
@@ -132,3 +162,5 @@ with st.form("asn_questionnaire_form"):
                     "NIP tersebut sudah pernah mengisi kuesioner. "
                     "Setiap ASN hanya dapat mengirim satu jawaban."
                 )
+
+render_public_footer()

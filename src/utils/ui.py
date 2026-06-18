@@ -7,34 +7,177 @@ import streamlit as st
 from src.constants import QUESTION_COLUMNS
 
 
-def apply_responsive_styles() -> None:
+def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
+    navigation_style = (
+        '[data-testid="stSidebarNav"] { display: none; }'
+        if hide_page_navigation
+        else ""
+    )
     st.markdown(
         """
         <style>
+        :root {{
+            --civic-navy: #123b5d;
+            --civic-blue: #176b87;
+            --service-green: #2e7d5b;
+            --civic-gold: #c79a3b;
+            --surface: #f4f7f9;
+            --border: #dce4e9;
+            --text: #17212b;
+        }}
+
+        __NAVIGATION_STYLE__
+
+        .stApp {{
+            background: var(--surface);
+        }}
+
         .block-container {
-            max-width: 1180px;
-            padding-top: 1.5rem;
-            padding-bottom: 2rem;
+            max-width: 1120px;
+            padding-top: 1.25rem;
+            padding-bottom: 2.5rem;
         }
 
         h1 {
+            color: var(--civic-navy);
             font-size: 2rem;
             line-height: 1.2;
         }
 
         h2, h3 {
+            color: var(--civic-navy);
             line-height: 1.25;
+        }
+
+        .institution-header {
+            display: grid;
+            grid-template-columns: 76px minmax(0, 1fr) 76px;
+            gap: 1.25rem;
+            align-items: center;
+            background: #ffffff;
+            border-top: 5px solid var(--civic-navy);
+            border-bottom: 1px solid var(--border);
+            padding: 1.15rem 1.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-placeholder {
+            width: 68px;
+            height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--civic-gold);
+            border-radius: 50%;
+            background: var(--civic-navy);
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.1;
+        }
+
+        .institution-copy {
+            text-align: center;
+        }
+
+        .institution-name {
+            color: var(--civic-navy);
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        .public-title {
+            color: var(--text);
+            font-size: 1.65rem;
+            font-weight: 750;
+            line-height: 1.25;
+            margin: 0;
+        }
+
+        .public-subtitle {
+            color: #556572;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin: 0.45rem auto 0;
+            max-width: 760px;
+        }
+
+        .research-meta {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1px;
+            overflow: hidden;
+            margin: 0 0 1.25rem;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .research-meta-item {
+            min-width: 0;
+            background: #ffffff;
+            padding: 0.8rem 0.9rem;
+        }
+
+        .research-meta-label {
+            color: #6b7780;
+            font-size: 0.72rem;
+            font-weight: 650;
+            text-transform: uppercase;
+        }
+
+        .research-meta-value {
+            color: var(--text);
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.35;
+            margin-top: 0.25rem;
+            overflow-wrap: anywhere;
+        }
+
+        .survey-intro {
+            background: #ffffff;
+            border-left: 4px solid var(--service-green);
+            padding: 1rem 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .survey-intro strong {
+            color: var(--civic-navy);
+        }
+
+        .privacy-note {
+            background: #eef5f1;
+            border: 1px solid #cfe1d7;
+            color: #244b39;
+            padding: 0.9rem 1rem;
+            margin: 0.75rem 0 1rem;
+            line-height: 1.55;
+        }
+
+        .public-footer {
+            border-top: 1px solid var(--border);
+            color: #64727d;
+            font-size: 0.78rem;
+            line-height: 1.5;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            text-align: center;
         }
 
         div[data-testid="stMetric"] {
             background: #ffffff;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--border);
             border-radius: 8px;
             padding: 0.85rem 1rem;
         }
 
         div[data-testid="stForm"] {
-            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            border: 1px solid var(--border);
             border-radius: 8px;
             padding: 1.2rem;
         }
@@ -51,8 +194,13 @@ def apply_responsive_styles() -> None:
             min-height: 2.6rem;
         }
 
+        .stFormSubmitButton button[kind="primary"] {
+            background: var(--civic-navy);
+            border-color: var(--civic-navy);
+        }
+
         div[data-testid="stDataFrame"] {
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--border);
             border-radius: 8px;
             overflow: hidden;
         }
@@ -72,6 +220,35 @@ def apply_responsive_styles() -> None:
 
             h3 {
                 font-size: 1.1rem;
+            }
+
+            .institution-header {
+                grid-template-columns: 52px minmax(0, 1fr) 52px;
+                gap: 0.65rem;
+                padding: 0.85rem 0.7rem;
+            }
+
+            .logo-placeholder {
+                width: 48px;
+                height: 48px;
+                font-size: 0.58rem;
+            }
+
+            .institution-name {
+                font-size: 0.68rem;
+            }
+
+            .public-title {
+                font-size: 1.15rem;
+            }
+
+            .public-subtitle {
+                font-size: 0.78rem;
+                line-height: 1.4;
+            }
+
+            .research-meta {
+                grid-template-columns: 1fr 1fr;
             }
 
             div[data-testid="stForm"] {
@@ -106,6 +283,56 @@ def apply_responsive_styles() -> None:
             }
         }
         </style>
+        """.replace("__NAVIGATION_STYLE__", navigation_style),
+        unsafe_allow_html=True,
+    )
+
+
+def render_public_header() -> None:
+    st.markdown(
+        """
+        <header class="institution-header">
+            <div class="logo-placeholder">KOTA<br>BANJAR</div>
+            <div class="institution-copy">
+                <div class="institution-name">Diskominfo Kota Banjar</div>
+                <h1 class="public-title">Dashboard Evaluasi Layanan Website BEBEONG</h1>
+                <p class="public-subtitle">
+                    Evaluasi penerimaan ASN menggunakan Technology Acceptance Model (TAM)
+                    pada variabel PU, PEOU, dan BI.
+                </p>
+            </div>
+            <div class="logo-placeholder">DIS<br>KOMINFO</div>
+        </header>
+        <section class="research-meta">
+            <div class="research-meta-item">
+                <div class="research-meta-label">Peneliti</div>
+                <div class="research-meta-value">Ahmad Akbar Ginanjar</div>
+            </div>
+            <div class="research-meta-item">
+                <div class="research-meta-label">NIM</div>
+                <div class="research-meta-value">22110246</div>
+            </div>
+            <div class="research-meta-item">
+                <div class="research-meta-label">Program Studi</div>
+                <div class="research-meta-value">Teknik Informatika - Konsentrasi Sistem Informasi</div>
+            </div>
+            <div class="research-meta-item">
+                <div class="research-meta-label">Tahun Penelitian</div>
+                <div class="research-meta-value">2026</div>
+            </div>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_public_footer() -> None:
+    st.markdown(
+        """
+        <footer class="public-footer">
+            Penelitian oleh Ahmad Akbar Ginanjar (22110246) ·
+            Teknik Informatika, Konsentrasi Sistem Informasi · 2026
+        </footer>
         """,
         unsafe_allow_html=True,
     )
