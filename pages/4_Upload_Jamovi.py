@@ -8,7 +8,7 @@ from src.repositories.analysis_repository import (
     save_jamovi_upload,
 )
 from src.utils.auth import render_admin_sidebar, require_admin
-from src.utils.ui import apply_responsive_styles, render_database_error
+from src.utils.ui import apply_responsive_styles, render_admin_note, render_admin_page_header, render_database_error
 
 
 st.set_page_config(page_title="Upload Jamovi", page_icon="📎", layout="wide")
@@ -23,7 +23,13 @@ except Exception as exc:
 require_admin()
 render_admin_sidebar()
 
-st.title("Upload Hasil Analisis Jamovi")
+render_admin_page_header(
+    "Upload Hasil Analisis Jamovi",
+    "Simpan arsip hasil analisis dari Jamovi seperti file OMV, tabel export, PDF, HTML, atau dokumen pendukung laporan.",
+)
+render_admin_note(
+    "File yang diunggah pada halaman ini berfungsi sebagai arsip. Grafik dashboard tetap berasal dari jawaban kuesioner yang tersimpan di database."
+)
 
 with st.form("upload_jamovi_form"):
     title = st.text_input("Judul hasil analisis")
@@ -57,13 +63,13 @@ if not uploads.empty:
         col1, col2 = st.columns(2)
         with col1:
             st.download_button(
-                "Download File",
+                "Download File Analisis",
                 bytes(file_data["file_content"]),
                 file_name=file_data["file_name"],
                 mime=file_data["file_type"],
             )
         with col2:
-            if st.button("Hapus File"):
+            if st.button("Hapus File", type="secondary"):
                 delete_jamovi_upload(int(selected_id))
                 st.success("File berhasil dihapus.")
                 st.rerun()

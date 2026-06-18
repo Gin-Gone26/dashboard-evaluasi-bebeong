@@ -6,6 +6,8 @@ from src.services.export_service import dataframe_to_csv_bytes, dataframe_to_exc
 from src.utils.auth import render_admin_sidebar, require_admin
 from src.utils.ui import (
     apply_responsive_styles,
+    render_admin_note,
+    render_admin_page_header,
     render_database_error,
     render_filters,
     render_variable_chart,
@@ -25,11 +27,19 @@ except Exception as exc:
 require_admin()
 render_admin_sidebar()
 
-st.title("Hasil Kuesioner TAM")
+render_admin_page_header(
+    "Hasil Kuesioner TAM",
+    "Lihat jawaban skala Likert PU, PEOU, dan BI. File export dari halaman ini dapat digunakan sebagai bahan analisis lanjutan di Jamovi.",
+)
 filters = render_filters("questionnaires")
 data = get_questionnaires(filters)
 scores = variable_score_dataframe(data)
 
+render_admin_note(
+    "Dashboard hanya menampilkan ringkasan dan visualisasi deskriptif. Pengujian validitas, reliabilitas, dan regresi tetap dilakukan di Jamovi."
+)
+
+st.subheader("Export Data Kuesioner")
 col1, col2 = st.columns(2)
 with col1:
     st.download_button(

@@ -5,6 +5,7 @@ from src.repositories.survey_repository import get_questionnaires, get_responden
 from src.utils.auth import render_admin_sidebar, require_admin
 from src.utils.ui import (
     apply_responsive_styles,
+    render_admin_page_header,
     render_database_error,
     render_likert_distribution,
     render_variable_chart,
@@ -24,8 +25,10 @@ except Exception as exc:
 require_admin()
 render_admin_sidebar()
 
-st.title("Dashboard Admin")
-st.caption("Visualisasi hasil evaluasi penerimaan ASN terhadap Website Bebeong Kota Banjar.")
+render_admin_page_header(
+    "Dashboard Admin",
+    "Ringkasan visual hasil pengumpulan data evaluasi penerimaan ASN terhadap layanan Website BEBEONG Kota Banjar.",
+)
 
 respondents = get_respondents()
 questionnaires = get_questionnaires()
@@ -38,6 +41,7 @@ col3.metric("Rata-rata PEOU", scores.loc[scores["Variabel"] == "PEOU", "Rata-rat
 col4.metric("Rata-rata PU", scores.loc[scores["Variabel"] == "PU", "Rata-rata"].iloc[0])
 col5.metric("Rata-rata BI", scores.loc[scores["Variabel"] == "BI", "Rata-rata"].iloc[0])
 
+st.divider()
 st.subheader("Rata-rata Variabel TAM")
 render_variable_chart(scores)
 

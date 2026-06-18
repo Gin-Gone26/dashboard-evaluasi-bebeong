@@ -16,7 +16,7 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
     st.markdown(
         """
         <style>
-        :root {{
+        :root {
             --civic-navy: #123b5d;
             --civic-blue: #176b87;
             --service-green: #2e7d5b;
@@ -24,13 +24,13 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             --surface: #f4f7f9;
             --border: #dce4e9;
             --text: #17212b;
-        }}
+        }
 
         __NAVIGATION_STYLE__
 
-        .stApp {{
+        .stApp {
             background: var(--surface);
-        }}
+        }
 
         .block-container {
             max-width: 1120px;
@@ -168,6 +168,62 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             text-align: center;
         }
 
+        .admin-page-header {
+            background: #ffffff;
+            border-left: 5px solid var(--civic-navy);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            padding: 1rem 1.1rem;
+        }
+
+        .admin-page-kicker {
+            color: var(--service-green);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        .admin-page-title {
+            color: var(--civic-navy);
+            font-size: 1.65rem;
+            font-weight: 750;
+            line-height: 1.25;
+            margin: 0;
+        }
+
+        .admin-page-description {
+            color: #5d6974;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin: 0.45rem 0 0;
+            max-width: 820px;
+        }
+
+        .admin-section-note {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #52616d;
+            line-height: 1.55;
+            margin-bottom: 1rem;
+            padding: 0.9rem 1rem;
+        }
+
+        .admin-danger-note {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            color: #8a4b14;
+            line-height: 1.55;
+            margin: 0.75rem 0 1rem;
+            padding: 0.9rem 1rem;
+        }
+
         div[data-testid="stMetric"] {
             background: #ffffff;
             border: 1px solid var(--border);
@@ -245,6 +301,10 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             .public-subtitle {
                 font-size: 0.78rem;
                 line-height: 1.4;
+            }
+
+            .admin-page-title {
+                font-size: 1.28rem;
             }
 
             .research-meta {
@@ -338,6 +398,24 @@ def render_public_footer() -> None:
     )
 
 
+def render_admin_page_header(title: str, description: str, kicker: str = "Panel Admin") -> None:
+    st.markdown(
+        f"""
+        <section class="admin-page-header">
+            <div class="admin-page-kicker">{kicker}</div>
+            <h1 class="admin-page-title">{title}</h1>
+            <p class="admin-page-description">{description}</p>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def render_admin_note(text: str, danger: bool = False) -> None:
+    css_class = "admin-danger-note" if danger else "admin-section-note"
+    st.markdown(f'<div class="{css_class}">{text}</div>', unsafe_allow_html=True)
+
+
 def render_database_error(message: str) -> None:
     st.error("Aplikasi belum terhubung ke database MySQL.")
     st.info(
@@ -412,3 +490,4 @@ def render_likert_distribution(dataframe: pd.DataFrame) -> None:
     )
     fig.update_layout(margin=dict(l=10, r=10, t=20, b=10))
     st.plotly_chart(fig, use_container_width=True)
+

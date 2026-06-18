@@ -4,7 +4,14 @@ from src.db import init_database
 from src.repositories.survey_repository import get_questionnaires, get_respondents
 from src.services.export_service import build_report_html
 from src.utils.auth import render_admin_sidebar, require_admin
-from src.utils.ui import apply_responsive_styles, render_database_error, render_variable_chart, variable_score_dataframe
+from src.utils.ui import (
+    apply_responsive_styles,
+    render_admin_note,
+    render_admin_page_header,
+    render_database_error,
+    render_variable_chart,
+    variable_score_dataframe,
+)
 
 
 st.set_page_config(page_title="Laporan Evaluasi", page_icon="📄", layout="wide")
@@ -19,7 +26,10 @@ except Exception as exc:
 require_admin()
 render_admin_sidebar()
 
-st.title("Laporan Evaluasi")
+render_admin_page_header(
+    "Laporan Evaluasi",
+    "Ringkasan laporan evaluasi penerimaan ASN terhadap Website BEBEONG Kota Banjar berdasarkan data yang telah terkumpul.",
+)
 
 respondents = get_respondents()
 questionnaires = get_questionnaires()
@@ -32,6 +42,10 @@ summary = {
 col1, col2 = st.columns(2)
 col1.metric("Total Responden", summary["total_respondents"])
 col2.metric("Total Jawaban Kuesioner", summary["total_questionnaires"])
+
+render_admin_note(
+    "Laporan ini memuat ringkasan data dari dashboard. Hasil analisis statistik lengkap dapat dilampirkan dari file Jamovi yang telah diunggah."
+)
 
 st.subheader("Rata-rata Variabel TAM")
 st.dataframe(scores, use_container_width=True, hide_index=True)

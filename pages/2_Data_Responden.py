@@ -5,7 +5,7 @@ from src.db import init_database
 from src.repositories.survey_repository import delete_respondent, get_respondents, update_respondent
 from src.services.export_service import dataframe_to_csv_bytes, dataframe_to_excel_bytes
 from src.utils.auth import render_admin_sidebar, require_admin
-from src.utils.ui import apply_responsive_styles, render_database_error, render_filters
+from src.utils.ui import apply_responsive_styles, render_admin_note, render_admin_page_header, render_database_error, render_filters
 
 
 st.set_page_config(page_title="Data Responden", page_icon="👥", layout="wide")
@@ -20,14 +20,18 @@ except Exception as exc:
 require_admin()
 render_admin_sidebar()
 
-st.title("Data Responden")
+render_admin_page_header(
+    "Data Responden",
+    "Kelola biodata ASN yang telah mengisi kuesioner TAM. Data pada halaman ini dapat difilter, diekspor, diperbarui, atau dihapus oleh admin.",
+)
 filters = render_filters("respondents")
 data = get_respondents(filters)
 
+st.subheader("Export Data Responden")
 col1, col2 = st.columns(2)
 with col1:
     st.download_button(
-        "Download CSV",
+        "Download CSV Responden",
         dataframe_to_csv_bytes(data),
         file_name="data_responden_tam_bebeong.csv",
         mime="text/csv",
@@ -35,13 +39,14 @@ with col1:
     )
 with col2:
     st.download_button(
-        "Download Excel",
+        "Download Excel Responden",
         dataframe_to_excel_bytes(data, "Responden"),
         file_name="data_responden_tam_bebeong.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         disabled=data.empty,
     )
 
+st.subheader("Tabel Data Responden")
 st.dataframe(data, use_container_width=True, hide_index=True)
 
 st.subheader("Edit Data Responden")
@@ -100,7 +105,7 @@ else:
             st.rerun()
 
     st.subheader("Hapus Data")
-    st.warning("Menghapus responden juga akan menghapus jawaban kuesioner miliknya.")
+    render_admin_note("Menghapus responden juga akan menghapus jawaban kuesioner miliknya.", danger=True)
     if st.button("Hapus Responden Terpilih", type="secondary"):
         delete_respondent(int(selected_id))
         st.success("Data responden berhasil dihapus.")
