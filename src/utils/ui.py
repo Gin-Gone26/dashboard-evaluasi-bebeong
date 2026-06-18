@@ -96,6 +96,8 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             font-weight: 750;
             line-height: 1.25;
             margin: 0;
+            overflow-wrap: normal;
+            word-break: normal;
         }
 
         .public-subtitle {
@@ -263,7 +265,7 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
 
         @media (max-width: 768px) {
             .block-container {
-                padding: 1rem 0.8rem 1.5rem;
+                padding: 3.75rem 0.8rem 1.5rem;
             }
 
             h1 {
@@ -279,8 +281,8 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             }
 
             .institution-header {
-                grid-template-columns: 52px minmax(0, 1fr) 52px;
-                gap: 0.65rem;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.65rem 0.9rem;
                 padding: 0.85rem 0.7rem;
             }
 
@@ -290,12 +292,25 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
                 font-size: 0.58rem;
             }
 
+            .logo-placeholder:first-child {
+                justify-self: start;
+            }
+
+            .logo-placeholder:last-child {
+                justify-self: end;
+            }
+
+            .institution-copy {
+                grid-column: 1 / -1;
+                grid-row: 2;
+            }
+
             .institution-name {
                 font-size: 0.68rem;
             }
 
             .public-title {
-                font-size: 1.15rem;
+                font-size: 1.28rem;
             }
 
             .public-subtitle {
