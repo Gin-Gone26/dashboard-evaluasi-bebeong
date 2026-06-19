@@ -150,7 +150,8 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             font-size: 0.92rem;
             line-height: 1.5;
             margin: 0.45rem auto 0;
-            max-width: 760px;
+            max-width: 860px;
+            text-align: center;
         }
 
         .research-meta {
