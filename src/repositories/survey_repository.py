@@ -62,7 +62,7 @@ def get_respondents(filters: dict | None = None) -> pd.DataFrame:
             updated_at
         FROM respondents
         {where_clause}
-        ORDER BY created_at DESC
+        ORDER BY id ASC
     """
     return pd.read_sql(text(query), get_engine(), params=params)
 
@@ -104,7 +104,7 @@ def get_questionnaires(filters: dict | None = None) -> pd.DataFrame:
         FROM questionnaires q
         JOIN respondents r ON r.id = q.respondent_id
         {where_clause}
-        ORDER BY q.submitted_at DESC
+        ORDER BY q.id ASC
     """
     return pd.read_sql(text(query), get_engine(), params=params)
 
