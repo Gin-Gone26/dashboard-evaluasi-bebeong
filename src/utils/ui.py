@@ -26,16 +26,33 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             --text: #1f2933;
         }
 
+        html,
+        body,
+        .stApp {
+            color-scheme: light !important;
+        }
+
         __NAVIGATION_STYLE__
 
         .stApp {
             background: var(--surface);
+            color: var(--text);
         }
 
         .block-container {
             max-width: 1120px;
             padding-top: 1.25rem;
             padding-bottom: 2.5rem;
+        }
+
+        .block-container,
+        .block-container p,
+        .block-container span,
+        .block-container label,
+        .block-container li,
+        .block-container div[data-testid="stMarkdownContainer"] {
+            color: var(--text) !important;
+            -webkit-text-fill-color: currentColor;
         }
 
         h1 {
@@ -236,10 +253,35 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 1.2rem;
+            color: var(--text);
         }
 
         div[data-testid="stRadio"] > div {
             gap: 0.5rem 1rem;
+        }
+
+        div[data-testid="stRadio"] label,
+        div[data-testid="stRadio"] span,
+        div[data-testid="stWidgetLabel"],
+        div[data-testid="stWidgetLabel"] p {
+            color: var(--text) !important;
+            -webkit-text-fill-color: currentColor;
+        }
+
+        .stTextInput input,
+        .stNumberInput input,
+        textarea,
+        div[data-baseweb="select"] > div {
+            background: #ffffff !important;
+            color: var(--text) !important;
+            border-color: var(--border) !important;
+            -webkit-text-fill-color: var(--text);
+        }
+
+        .stTextInput input::placeholder,
+        textarea::placeholder {
+            color: #76838f !important;
+            -webkit-text-fill-color: #76838f;
         }
 
         .stButton button,
