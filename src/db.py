@@ -47,15 +47,12 @@ def init_database() -> None:
         """
         CREATE TABLE IF NOT EXISTS respondents (
           id INT AUTO_INCREMENT PRIMARY KEY,
-          full_name VARCHAR(120) NOT NULL,
-          nip VARCHAR(30) NULL,
           gender ENUM('Laki-laki', 'Perempuan') NOT NULL,
           age INT NOT NULL,
           work_unit VARCHAR(150) NOT NULL,
           position_name VARCHAR(120) NOT NULL,
           education VARCHAR(50) NOT NULL,
           years_of_service INT NOT NULL,
-          email VARCHAR(120) NULL,
           created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE=InnoDB
@@ -98,8 +95,8 @@ def init_database() -> None:
         for statement in statements:
             conn.execute(text(statement))
 
+    migrate_private_respondent_columns()
     ensure_default_admin()
-    ensure_unique_nip_constraint()
 
 
 def ensure_default_admin() -> None:
@@ -123,44 +120,50 @@ def ensure_default_admin() -> None:
             )
 
 
-def ensure_unique_nip_constraint() -> None:
-    engine = get_engine()
-    with engine.begin() as conn:
-        index_exists = conn.execute(
+def _column_exists(conn, table_name: str, column_name: str) -> bool:
+    return bool(
+        conn.execute(
+            text(
+                """
+                SELECT COUNT(*)
+                FROM information_schema.columns
+                WHERE table_schema = DATABASE()
+                  AND table_name = :table_name
+                  AND column_name = :column_name
+                """
+            ),
+            {"table_name": table_name, "column_name": column_name},
+        ).scalar_one()
+    )
+
+
+def _index_exists(conn, table_name: str, index_name: str) -> bool:
+    return bool(
+        conn.execute(
             text(
                 """
                 SELECT COUNT(*)
                 FROM information_schema.statistics
                 WHERE table_schema = DATABASE()
-                  AND table_name = 'respondents'
-                  AND index_name = 'uq_respondents_nip'
+                  AND table_name = :table_name
+                  AND index_name = :index_name
                 """
-            )
+            ),
+            {"table_name": table_name, "index_name": index_name},
         ).scalar_one()
-        if index_exists:
-            return
+    )
 
-        duplicate_count = conn.execute(
-            text(
-                """
-                SELECT COUNT(*)
-                FROM (
-                    SELECT nip
-                    FROM respondents
-                    WHERE nip IS NOT NULL AND nip <> ''
-                    GROUP BY nip
-                    HAVING COUNT(*) > 1
-                ) duplicate_nips
-                """
-            )
-        ).scalar_one()
-        if duplicate_count == 0:
-            conn.execute(
-                text(
-                    "CREATE UNIQUE INDEX uq_respondents_nip "
-                    "ON respondents (nip)"
-                )
-            )
+
+def migrate_private_respondent_columns() -> None:
+    """Remove respondent identity columns from older installations."""
+    engine = get_engine()
+    with engine.begin() as conn:
+        conn.execute(text("DROP VIEW IF EXISTS v_questionnaire_scores"))
+        if _index_exists(conn, "respondents", "uq_respondents_nip"):
+            conn.execute(text("DROP INDEX uq_respondents_nip ON respondents"))
+        for column_name in ("full_name", "nip", "email"):
+            if _column_exists(conn, "respondents", column_name):
+                conn.execute(text(f"ALTER TABLE respondents DROP COLUMN {column_name}"))
 
 
 def check_database_connection() -> tuple[bool, str]:

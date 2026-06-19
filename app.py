@@ -3,7 +3,7 @@ import streamlit as st
 from src.config import get_default_admin
 from src.constants import EDUCATION_OPTIONS, LIKERT_OPTIONS, QUESTION_GROUPS
 from src.db import check_database_connection, init_database
-from src.repositories.survey_repository import DuplicateRespondentError, create_submission
+from src.repositories.survey_repository import create_submission
 from src.utils.auth import initialize_auth_state, login, logout
 from src.utils.ui import (
     apply_responsive_styles,
@@ -66,8 +66,9 @@ st.markdown(
     """
     <section class="survey-intro">
         <strong>Petunjuk pengisian</strong><br>
-        Isi biodata dengan benar, kemudian pilih satu jawaban pada setiap pernyataan.
+        Isi data umum responden tanpa mencantumkan identitas pribadi, kemudian pilih satu jawaban pada setiap pernyataan.
         Skala jawaban adalah 1 (Sangat Tidak Setuju) sampai 5 (Sangat Setuju).
+        Mohon kuesioner diisi satu kali oleh setiap responden.
         Waktu pengisian diperkirakan 5-7 menit.
     </section>
     """,
@@ -76,28 +77,21 @@ st.markdown(
 
 if st.session_state["questionnaire_submitted"]:
     st.success(
-        "Jawaban Anda sudah berhasil disimpan. Setiap ASN hanya dapat mengisi kuesioner satu kali."
+        "Jawaban Anda sudah berhasil disimpan. Terima kasih atas partisipasinya."
     )
     render_public_footer()
     st.stop()
 
 with st.form("asn_questionnaire_form"):
-    st.subheader("Biodata Responden")
+    st.subheader("Data Umum Responden")
     col1, col2 = st.columns(2)
     with col1:
-        full_name = st.text_input("Nama lengkap")
-        nip = st.text_input(
-            "NIP",
-            max_chars=18,
-            help="Wajib diisi dengan 18 digit. NIP digunakan untuk mencegah pengisian berulang.",
-        )
         gender = st.selectbox("Jenis kelamin", ["Laki-laki", "Perempuan"])
         age = st.number_input("Usia", min_value=18, max_value=65, value=30)
-        email = st.text_input("Email", help="Opsional.")
+        education = st.selectbox("Pendidikan terakhir", EDUCATION_OPTIONS)
     with col2:
         work_unit = st.text_input("Unit kerja")
         position_name = st.text_input("Jabatan")
-        education = st.selectbox("Pendidikan terakhir", EDUCATION_OPTIONS)
         years_of_service = st.number_input("Masa kerja (tahun)", min_value=0, max_value=45, value=1)
 
     st.subheader("Kuesioner TAM")
@@ -119,9 +113,9 @@ with st.form("asn_questionnaire_form"):
     st.markdown(
         """
         <div class="privacy-note">
+            Kuesioner ini tidak meminta nama, NIP, email, atau identitas pribadi lainnya.
             Data yang diberikan digunakan khusus untuk kepentingan penelitian dan
-            evaluasi layanan Website BEBEONG. Identitas responden tidak ditampilkan
-            pada laporan publik dan dikelola oleh peneliti serta administrator yang berwenang.
+            evaluasi penerimaan layanan Website BEBEONG.
         </div>
         """,
         unsafe_allow_html=True,
@@ -132,35 +126,24 @@ with st.form("asn_questionnaire_form"):
     submitted = st.form_submit_button("Kirim Kuesioner", type="primary")
 
     if submitted:
-        required_fields = [full_name, work_unit, position_name]
+        required_fields = [work_unit, position_name]
         if not all(field.strip() for field in required_fields):
-            st.error("Nama lengkap, unit kerja, dan jabatan wajib diisi.")
-        elif not nip.strip().isdigit() or len(nip.strip()) != 18:
-            st.error("NIP wajib terdiri dari tepat 18 digit angka.")
+            st.error("Unit kerja dan jabatan wajib diisi.")
         elif any(answer is None for answer in answers.values()):
             st.error("Seluruh pertanyaan kuesioner wajib dijawab.")
         elif not consent:
             st.error("Persetujuan responden wajib dicentang sebelum kuesioner dikirim.")
         else:
             respondent = {
-                "full_name": full_name.strip(),
-                "nip": nip.strip(),
                 "gender": gender,
                 "age": int(age),
                 "work_unit": work_unit.strip(),
                 "position_name": position_name.strip(),
                 "education": education,
                 "years_of_service": int(years_of_service),
-                "email": email.strip() or None,
             }
-            try:
-                create_submission(respondent, answers)
-                st.session_state["questionnaire_submitted"] = True
-                st.rerun()
-            except DuplicateRespondentError:
-                st.error(
-                    "NIP tersebut sudah pernah mengisi kuesioner. "
-                    "Setiap ASN hanya dapat mengirim satu jawaban."
-                )
+            create_submission(respondent, answers)
+            st.session_state["questionnaire_submitted"] = True
+            st.rerun()
 
 render_public_footer()

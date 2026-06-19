@@ -27,7 +27,7 @@ render_admin_sidebar()
 
 render_admin_page_header(
     "Dashboard Admin",
-    "Ringkasan visual hasil pengumpulan data evaluasi penerimaan ASN terhadap layanan Website BEBEONG Kota Banjar.",
+    "Ringkasan visual hasil pengumpulan data evaluasi penerimaan ASN terhadap layanan Website BEBEONG.",
 )
 
 respondents = get_respondents()

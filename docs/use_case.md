@@ -6,7 +6,7 @@ flowchart LR
     Admin["Admin"]
     Sistem["Dashboard Evaluasi TAM"]
 
-    ASN --> UC1["Mengisi biodata responden"]
+    ASN --> UC1["Mengisi data umum responden"]
     ASN --> UC2["Mengisi kuesioner TAM"]
     ASN --> UC3["Mengirim jawaban"]
 
@@ -35,10 +35,10 @@ flowchart LR
 ## Skenario Utama ASN
 
 1. ASN membuka aplikasi.
-2. ASN mengisi biodata.
+2. ASN mengisi data umum tanpa nama, NIP, email, atau identitas pribadi.
 3. ASN mengisi 20 item kuesioner TAM.
 4. ASN menekan tombol kirim.
-5. Sistem menyimpan biodata dan jawaban ke MySQL.
+5. Sistem menyimpan data umum responden dan jawaban ke MySQL.
 
 ## Skenario Utama Admin
 

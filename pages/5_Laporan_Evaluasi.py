@@ -28,7 +28,7 @@ render_admin_sidebar()
 
 render_admin_page_header(
     "Laporan Evaluasi",
-    "Ringkasan laporan evaluasi penerimaan ASN terhadap Website BEBEONG Kota Banjar berdasarkan data yang telah terkumpul.",
+    "Ringkasan laporan evaluasi penerimaan ASN terhadap Website BEBEONG berdasarkan data yang telah terkumpul.",
 )
 
 respondents = get_respondents()
@@ -53,7 +53,7 @@ render_variable_chart(scores)
 
 st.subheader("Narasi Laporan")
 st.write(
-    "Dashboard ini menampilkan hasil pengumpulan data penerimaan ASN terhadap Website Bebeong Kota Banjar "
+    "Dashboard ini menampilkan hasil pengumpulan data penerimaan ASN terhadap Website BEBEONG "
     "berdasarkan variabel TAM: Perceived Ease of Use, Perceived Usefulness, dan Behavioral Intention. "
     "Data yang ditampilkan dapat diekspor dan dianalisis lebih lanjut menggunakan Jamovi."
 )

@@ -15,15 +15,12 @@ erDiagram
 
     RESPONDENTS {
         int id PK
-        varchar full_name
-        varchar nip
         enum gender
         int age
         varchar work_unit
         varchar position_name
         varchar education
         int years_of_service
-        varchar email
         timestamp created_at
         timestamp updated_at
     }

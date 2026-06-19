@@ -14,18 +14,14 @@ CREATE TABLE IF NOT EXISTS admins (
 
 CREATE TABLE IF NOT EXISTS respondents (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  full_name VARCHAR(120) NOT NULL,
-  nip VARCHAR(30) NOT NULL,
   gender ENUM('Laki-laki', 'Perempuan') NOT NULL,
   age INT NOT NULL,
   work_unit VARCHAR(150) NOT NULL,
   position_name VARCHAR(120) NOT NULL,
   education VARCHAR(50) NOT NULL,
   years_of_service INT NOT NULL,
-  email VARCHAR(120) NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  CONSTRAINT uq_respondents_nip UNIQUE (nip)
+  updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS questionnaires (
@@ -95,7 +91,6 @@ CREATE OR REPLACE VIEW v_questionnaire_scores AS
 SELECT
   q.id,
   q.respondent_id,
-  r.full_name,
   r.gender,
   r.work_unit,
   r.position_name,

@@ -5,17 +5,13 @@ from src.constants import QUESTION_COLUMNS
 from src.db import get_engine
 
 
-class DuplicateRespondentError(Exception):
-    pass
-
-
 def create_submission(respondent: dict, answers: dict) -> int:
     respondent_query = text(
         """
         INSERT INTO respondents
-            (full_name, nip, gender, age, work_unit, position_name, education, years_of_service, email)
+            (gender, age, work_unit, position_name, education, years_of_service)
         VALUES
-            (:full_name, :nip, :gender, :age, :work_unit, :position_name, :education, :years_of_service, :email)
+            (:gender, :age, :work_unit, :position_name, :education, :years_of_service)
         """
     )
     answer_columns = ", ".join(QUESTION_COLUMNS)
@@ -28,33 +24,10 @@ def create_submission(respondent: dict, answers: dict) -> int:
     )
 
     with get_engine().begin() as conn:
-        lock_name = f"questionnaire_nip_{respondent['nip']}"
-        lock_acquired = conn.execute(
-            text("SELECT GET_LOCK(:lock_name, 10)"),
-            {"lock_name": lock_name},
-        ).scalar()
-        if lock_acquired != 1:
-            raise RuntimeError("Gagal mengunci proses pengiriman kuesioner.")
-
-        try:
-            existing_id = conn.execute(
-                text("SELECT id FROM respondents WHERE nip = :nip LIMIT 1"),
-                {"nip": respondent["nip"]},
-            ).scalar()
-            if existing_id:
-                raise DuplicateRespondentError(
-                    "NIP tersebut sudah pernah mengisi kuesioner."
-                )
-
-            result = conn.execute(respondent_query, respondent)
-            respondent_id = result.lastrowid
-            conn.execute(questionnaire_query, {"respondent_id": respondent_id, **answers})
-            return respondent_id
-        finally:
-            conn.execute(
-                text("SELECT RELEASE_LOCK(:lock_name)"),
-                {"lock_name": lock_name},
-            )
+        result = conn.execute(respondent_query, respondent)
+        respondent_id = result.lastrowid
+        conn.execute(questionnaire_query, {"respondent_id": respondent_id, **answers})
+        return respondent_id
 
 
 def get_respondents(filters: dict | None = None) -> pd.DataFrame:
@@ -76,7 +49,21 @@ def get_respondents(filters: dict | None = None) -> pd.DataFrame:
         params["end_date"] = filters["end_date"]
 
     where_clause = f"WHERE {' AND '.join(conditions)}" if conditions else ""
-    query = f"SELECT * FROM respondents {where_clause} ORDER BY created_at DESC"
+    query = f"""
+        SELECT
+            id,
+            gender,
+            age,
+            work_unit,
+            position_name,
+            education,
+            years_of_service,
+            created_at,
+            updated_at
+        FROM respondents
+        {where_clause}
+        ORDER BY created_at DESC
+    """
     return pd.read_sql(text(query), get_engine(), params=params)
 
 
@@ -103,15 +90,12 @@ def get_questionnaires(filters: dict | None = None) -> pd.DataFrame:
         SELECT
             q.id AS questionnaire_id,
             r.id AS respondent_id,
-            r.full_name,
-            r.nip,
             r.gender,
             r.age,
             r.work_unit,
             r.position_name,
             r.education,
             r.years_of_service,
-            r.email,
             q.{", q.".join(QUESTION_COLUMNS)},
             ROUND((q.PEOU1 + q.PEOU2 + q.PEOU3 + q.PEOU4 + q.PEOU5 + q.PEOU6 + q.PEOU7) / 7, 2) AS peou_avg,
             ROUND((q.PU1 + q.PU2 + q.PU3 + q.PU4 + q.PU5 + q.PU6 + q.PU7) / 7, 2) AS pu_avg,
@@ -129,15 +113,12 @@ def update_respondent(respondent_id: int, data: dict) -> None:
     query = text(
         """
         UPDATE respondents SET
-            full_name = :full_name,
-            nip = :nip,
             gender = :gender,
             age = :age,
             work_unit = :work_unit,
             position_name = :position_name,
             education = :education,
-            years_of_service = :years_of_service,
-            email = :email
+            years_of_service = :years_of_service
         WHERE id = :id
         """
     )

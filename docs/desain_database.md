@@ -14,20 +14,17 @@ Menyimpan akun administrator.
 
 ## Tabel `respondents`
 
-Menyimpan biodata ASN.
+Menyimpan data umum responden tanpa nama, NIP, email, atau identitas pribadi.
 
 | Kolom | Tipe | Keterangan |
 |---|---|---|
 | id | INT PK | ID responden |
-| full_name | VARCHAR(120) | Nama lengkap |
-| nip | VARCHAR(30) | NIP |
 | gender | ENUM | Jenis kelamin |
 | age | INT | Usia |
 | work_unit | VARCHAR(150) | Unit kerja |
 | position_name | VARCHAR(120) | Jabatan |
 | education | VARCHAR(50) | Pendidikan terakhir |
 | years_of_service | INT | Masa kerja |
-| email | VARCHAR(120) | Email |
 | created_at | TIMESTAMP | Waktu input |
 | updated_at | TIMESTAMP | Waktu update |
 

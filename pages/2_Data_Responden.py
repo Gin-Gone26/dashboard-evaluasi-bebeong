@@ -22,7 +22,7 @@ render_admin_sidebar()
 
 render_admin_page_header(
     "Data Responden",
-    "Kelola biodata ASN yang telah mengisi kuesioner TAM. Data pada halaman ini dapat difilter, diekspor, diperbarui, atau dihapus oleh admin.",
+    "Kelola data umum responden yang telah mengisi kuesioner TAM. Halaman ini tidak menyimpan nama, NIP, email, atau identitas pribadi responden.",
 )
 filters = render_filters("respondents")
 data = get_respondents(filters)
@@ -56,29 +56,26 @@ else:
     selected_id = st.selectbox(
         "Pilih responden",
         data["id"].tolist(),
-        format_func=lambda value: data.loc[data["id"] == value, "full_name"].iloc[0],
+        format_func=lambda value: f"Responden #{value}",
     )
     selected = data.loc[data["id"] == selected_id].iloc[0]
     with st.form("edit_respondent_form"):
         col_a, col_b = st.columns(2)
         with col_a:
-            full_name = st.text_input("Nama lengkap", value=selected["full_name"])
-            nip = st.text_input("NIP", value=selected["nip"] or "")
             gender = st.selectbox(
                 "Jenis kelamin",
                 ["Laki-laki", "Perempuan"],
                 index=["Laki-laki", "Perempuan"].index(selected["gender"]),
             )
             age = st.number_input("Usia", min_value=18, max_value=65, value=int(selected["age"]))
-            email = st.text_input("Email", value=selected["email"] or "")
-        with col_b:
-            work_unit = st.text_input("Unit kerja", value=selected["work_unit"])
-            position_name = st.text_input("Jabatan", value=selected["position_name"])
             education = st.selectbox(
                 "Pendidikan terakhir",
                 EDUCATION_OPTIONS,
                 index=EDUCATION_OPTIONS.index(selected["education"]) if selected["education"] in EDUCATION_OPTIONS else 0,
             )
+        with col_b:
+            work_unit = st.text_input("Unit kerja", value=selected["work_unit"])
+            position_name = st.text_input("Jabatan", value=selected["position_name"])
             years_of_service = st.number_input(
                 "Masa kerja (tahun)",
                 min_value=0,
@@ -90,15 +87,12 @@ else:
             update_respondent(
                 int(selected_id),
                 {
-                    "full_name": full_name.strip(),
-                    "nip": nip.strip() or None,
                     "gender": gender,
                     "age": int(age),
                     "work_unit": work_unit.strip(),
                     "position_name": position_name.strip(),
                     "education": education,
                     "years_of_service": int(years_of_service),
-                    "email": email.strip() or None,
                 },
             )
             st.success("Data responden berhasil diperbarui.")

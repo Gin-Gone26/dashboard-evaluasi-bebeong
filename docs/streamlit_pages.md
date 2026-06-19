@@ -5,7 +5,7 @@
 Halaman publik untuk ASN:
 
 - Informasi ringkas penelitian.
-- Form biodata responden.
+- Form data umum responden tanpa identitas pribadi.
 - Form kuesioner TAM.
 - Tombol kirim jawaban.
 - Login admin di sidebar.

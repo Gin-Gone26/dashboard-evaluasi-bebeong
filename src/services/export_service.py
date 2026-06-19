@@ -35,8 +35,8 @@ def build_report_html(summary: dict, variable_scores: pd.DataFrame) -> bytes:
       </style>
     </head>
     <body>
-      <h1>Laporan Evaluasi Penerimaan ASN terhadap Website Bebeong Kota Banjar</h1>
-      <p>Metode: Technology Acceptance Model (TAM)</p>
+      <h1>Laporan Evaluasi Penerimaan ASN terhadap Website BEBEONG</h1>
+      <p>Penelitian skripsi mandiri dengan metode Technology Acceptance Model (TAM)</p>
       <h2>Ringkasan Data</h2>
       <table>
         <tr><th>Indikator</th><th>Jumlah</th></tr>

@@ -8,7 +8,7 @@ Judul skripsi:
 
 Aplikasi ini dibuat dengan Python Streamlit dan MySQL. Dashboard berfungsi untuk:
 
-- Pengisian biodata responden ASN.
+- Pengisian data umum responden tanpa nama, NIP, email, atau identitas pribadi.
 - Pengisian kuesioner TAM skala Likert 1-5.
 - Penyimpanan data responden dan jawaban ke MySQL.
 - Pengelolaan data oleh admin.
@@ -17,6 +17,8 @@ Aplikasi ini dibuat dengan Python Streamlit dan MySQL. Dashboard berfungsi untuk
 - Penyusunan dan unduh laporan evaluasi.
 
 Dashboard tidak menghitung validitas, reliabilitas, atau regresi TAM. Analisis statistik lanjutan dilakukan di Jamovi menggunakan file export.
+
+Tampilan publik dibuat netral sebagai media penelitian pribadi, bukan sebagai aplikasi resmi instansi.
 
 ## Struktur Folder
 

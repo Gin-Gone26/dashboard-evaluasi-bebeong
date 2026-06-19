@@ -17,13 +17,13 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
         """
         <style>
         :root {
-            --civic-navy: #123b5d;
-            --civic-blue: #176b87;
-            --service-green: #2e7d5b;
-            --civic-gold: #c79a3b;
-            --surface: #f4f7f9;
-            --border: #dce4e9;
-            --text: #17212b;
+            --civic-navy: #243447;
+            --civic-blue: #4f6f82;
+            --service-green: #4d725d;
+            --civic-gold: #8a744d;
+            --surface: #f6f7f8;
+            --border: #dde3e8;
+            --text: #1f2933;
         }
 
         __NAVIGATION_STYLE__
@@ -50,14 +50,12 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
         }
 
         .institution-header {
-            display: grid;
-            grid-template-columns: 76px minmax(0, 1fr) 76px;
-            gap: 1.25rem;
-            align-items: center;
+            display: block;
             background: #ffffff;
-            border-top: 5px solid var(--civic-navy);
-            border-bottom: 1px solid var(--border);
-            padding: 1.15rem 1.35rem;
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--civic-navy);
+            border-radius: 8px;
+            padding: 1.25rem 1.35rem;
             margin-bottom: 1rem;
         }
 
@@ -281,8 +279,6 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             }
 
             .institution-header {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.65rem 0.9rem;
                 padding: 0.85rem 0.7rem;
             }
 
@@ -290,19 +286,6 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
                 width: 48px;
                 height: 48px;
                 font-size: 0.58rem;
-            }
-
-            .logo-placeholder:first-child {
-                justify-self: start;
-            }
-
-            .logo-placeholder:last-child {
-                justify-self: end;
-            }
-
-            .institution-copy {
-                grid-column: 1 / -1;
-                grid-row: 2;
             }
 
             .institution-name {
@@ -367,16 +350,14 @@ def render_public_header() -> None:
     st.markdown(
         """
         <header class="institution-header">
-            <div class="logo-placeholder">KOTA<br>BANJAR</div>
             <div class="institution-copy">
-                <div class="institution-name">Diskominfo Kota Banjar</div>
-                <h1 class="public-title">Dashboard Evaluasi Layanan Website BEBEONG</h1>
+                <div class="institution-name">Penelitian Skripsi</div>
+                <h1 class="public-title">Kuesioner Evaluasi Website BEBEONG</h1>
                 <p class="public-subtitle">
-                    Evaluasi penerimaan ASN menggunakan Technology Acceptance Model (TAM)
-                    pada variabel PU, PEOU, dan BI.
+                    Penelitian mandiri mengenai penerimaan pengguna terhadap layanan
+                    Website BEBEONG menggunakan Technology Acceptance Model (TAM).
                 </p>
             </div>
-            <div class="logo-placeholder">DIS<br>KOMINFO</div>
         </header>
         <section class="research-meta">
             <div class="research-meta-item">
@@ -405,7 +386,7 @@ def render_public_footer() -> None:
     st.markdown(
         """
         <footer class="public-footer">
-            Penelitian oleh Ahmad Akbar Ginanjar (22110246) ·
+            Penelitian mandiri oleh Ahmad Akbar Ginanjar (22110246) ·
             Teknik Informatika, Konsentrasi Sistem Informasi · 2026
         </footer>
         """,

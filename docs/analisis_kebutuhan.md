@@ -15,7 +15,7 @@ Sistem bertujuan menjadi media pengumpulan, pengelolaan, export, dan visualisasi
 ## Aktor
 
 1. ASN
-   - Mengisi biodata responden.
+   - Mengisi data umum responden tanpa identitas pribadi.
    - Mengisi 20 pertanyaan kuesioner TAM.
    - Mengirim jawaban.
 
@@ -31,7 +31,7 @@ Sistem bertujuan menjadi media pengumpulan, pengelolaan, export, dan visualisasi
 
 ## Kebutuhan Fungsional
 
-- Sistem menyediakan form biodata responden ASN.
+- Sistem menyediakan form data umum responden tanpa nama, NIP, email, atau identitas pribadi.
 - Sistem menyediakan form kuesioner TAM skala Likert 1-5.
 - Sistem menyimpan data ke database MySQL.
 - Sistem menyediakan autentikasi admin.
