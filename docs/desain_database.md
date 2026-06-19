@@ -55,3 +55,4 @@ Menyimpan file hasil analisis Jamovi.
 | file_content | LONGBLOB | Isi file |
 | uploaded_by | INT FK | Admin pengunggah |
 | uploaded_at | TIMESTAMP | Waktu upload |
+

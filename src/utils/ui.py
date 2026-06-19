@@ -352,10 +352,10 @@ def render_public_header() -> None:
         <header class="institution-header">
             <div class="institution-copy">
                 <div class="institution-name">Penelitian Skripsi</div>
-                <h1 class="public-title">Kuesioner Evaluasi Website BEBEONG</h1>
+                <h1 class="public-title">Kuesioner Evaluasi Aplikasi BEBEONG Banjar Super Apps</h1>
                 <p class="public-subtitle">
                     Penelitian mandiri mengenai penerimaan pengguna terhadap layanan
-                    Website BEBEONG menggunakan Technology Acceptance Model (TAM).
+                    Aplikasi BEBEONG Banjar Super Apps menggunakan Technology Acceptance Model (TAM).
                 </p>
             </div>
         </header>
@@ -486,4 +486,5 @@ def render_likert_distribution(dataframe: pd.DataFrame) -> None:
     )
     fig.update_layout(margin=dict(l=10, r=10, t=20, b=10))
     st.plotly_chart(fig, use_container_width=True)
+
 

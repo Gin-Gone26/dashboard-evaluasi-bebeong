@@ -2,36 +2,36 @@ QUESTION_GROUPS = {
     "PU": {
         "label": "Perceived Usefulness",
         "questions": {
-            "PU1": "Website BEBEONG membantu saya memperoleh informasi atau layanan dengan lebih cepat.",
-            "PU2": "Website BEBEONG mempermudah saya dalam mengakses layanan pemerintahan.",
-            "PU3": "Website BEBEONG meningkatkan efektivitas saya dalam memperoleh informasi atau layanan.",
-            "PU4": "Website BEBEONG membantu menghemat waktu dalam mengakses layanan pemerintahan.",
-            "PU5": "Website BEBEONG memberikan manfaat dalam memenuhi kebutuhan layanan saya.",
-            "PU6": "Website BEBEONG membantu saya memperoleh layanan secara lebih efisien dibandingkan cara konvensional.",
-            "PU7": "Secara keseluruhan Website BEBEONG bermanfaat bagi saya.",
+            "PU1": "Aplikasi BEBEONG Banjar Super Apps membantu saya memperoleh informasi atau layanan dengan lebih cepat.",
+            "PU2": "Aplikasi BEBEONG Banjar Super Apps mempermudah saya dalam mengakses layanan pemerintahan.",
+            "PU3": "Aplikasi BEBEONG Banjar Super Apps meningkatkan efektivitas saya dalam memperoleh informasi atau layanan.",
+            "PU4": "Aplikasi BEBEONG Banjar Super Apps membantu menghemat waktu dalam mengakses layanan pemerintahan.",
+            "PU5": "Aplikasi BEBEONG Banjar Super Apps memberikan manfaat dalam memenuhi kebutuhan layanan saya.",
+            "PU6": "Aplikasi BEBEONG Banjar Super Apps membantu saya memperoleh layanan secara lebih efisien dibandingkan cara konvensional.",
+            "PU7": "Secara keseluruhan Aplikasi BEBEONG Banjar Super Apps bermanfaat bagi saya.",
         },
     },
     "PEOU": {
         "label": "Perceived Ease of Use",
         "questions": {
-            "PEOU1": "Website BEBEONG mudah dipelajari.",
-            "PEOU2": "Menu dan fitur Website BEBEONG mudah dipahami.",
-            "PEOU3": "Saya dapat menggunakan Website BEBEONG tanpa mengalami kesulitan berarti.",
-            "PEOU4": "Tampilan Website BEBEONG mudah dipahami.",
-            "PEOU5": "Interaksi dengan Website BEBEONG terasa mudah dilakukan.",
-            "PEOU6": "Saya dapat dengan mudah menemukan layanan yang saya butuhkan pada Website BEBEONG.",
-            "PEOU7": "Proses penggunaan Website BEBEONG mudah untuk diingat.",
+            "PEOU1": "Aplikasi BEBEONG Banjar Super Apps mudah dipelajari.",
+            "PEOU2": "Menu dan fitur Aplikasi BEBEONG Banjar Super Apps mudah dipahami.",
+            "PEOU3": "Saya dapat menggunakan Aplikasi BEBEONG Banjar Super Apps tanpa mengalami kesulitan berarti.",
+            "PEOU4": "Tampilan Aplikasi BEBEONG Banjar Super Apps mudah dipahami.",
+            "PEOU5": "Interaksi dengan Aplikasi BEBEONG Banjar Super Apps terasa mudah dilakukan.",
+            "PEOU6": "Saya dapat dengan mudah menemukan layanan yang saya butuhkan pada Aplikasi BEBEONG Banjar Super Apps.",
+            "PEOU7": "Proses penggunaan Aplikasi BEBEONG Banjar Super Apps mudah untuk diingat.",
         },
     },
     "BI": {
         "label": "Behavioral Intention",
         "questions": {
-            "BI1": "Saya berminat menggunakan Website BEBEONG kembali di masa mendatang.",
-            "BI2": "Saya akan menggunakan Website BEBEONG apabila membutuhkan layanan pemerintahan.",
-            "BI3": "Saya bersedia merekomendasikan Website BEBEONG kepada orang lain.",
-            "BI4": "Saya memiliki keinginan untuk terus menggunakan layanan yang tersedia pada Website BEBEONG.",
-            "BI5": "Saya lebih memilih menggunakan Website BEBEONG dibandingkan proses pelayanan secara manual apabila tersedia.",
-            "BI6": "Saya akan tetap menggunakan Website BEBEONG apabila terdapat pengembangan layanan di masa mendatang.",
+            "BI1": "Saya berminat menggunakan Aplikasi BEBEONG Banjar Super Apps kembali di masa mendatang.",
+            "BI2": "Saya akan menggunakan Aplikasi BEBEONG Banjar Super Apps apabila membutuhkan layanan pemerintahan.",
+            "BI3": "Saya bersedia merekomendasikan Aplikasi BEBEONG Banjar Super Apps kepada orang lain.",
+            "BI4": "Saya memiliki keinginan untuk terus menggunakan layanan yang tersedia pada Aplikasi BEBEONG Banjar Super Apps.",
+            "BI5": "Saya lebih memilih menggunakan Aplikasi BEBEONG Banjar Super Apps dibandingkan proses pelayanan secara manual apabila tersedia.",
+            "BI6": "Saya akan tetap menggunakan Aplikasi BEBEONG Banjar Super Apps apabila terdapat pengembangan layanan di masa mendatang.",
         },
     },
 }
@@ -51,3 +51,4 @@ LIKERT_OPTIONS = {
 }
 
 EDUCATION_OPTIONS = ["SMA/SMK", "D3", "S1", "S2", "S3"]
+

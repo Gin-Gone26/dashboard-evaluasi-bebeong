@@ -1,8 +1,8 @@
-# Dashboard Evaluasi Penerimaan ASN terhadap Layanan E-Government Website Bebeong Kota Banjar
+# Dashboard Evaluasi Penerimaan ASN terhadap Layanan E-Government pada Aplikasi BEBEONG Banjar Super Apps
 
 Judul skripsi:
 
-**Pengembangan Dashboard Evaluasi Penerimaan ASN terhadap Layanan E-Government pada Website Bebeong Kota Banjar Menggunakan Technology Acceptance Model (TAM)**
+**Pengembangan Dashboard Evaluasi Penerimaan ASN terhadap Layanan E-Government pada Aplikasi BEBEONG Banjar Super Apps Menggunakan Technology Acceptance Model (TAM)**
 
 ## Ringkasan Sistem
 
@@ -108,3 +108,4 @@ password = "password_kuat"
 ```
 
 Pastikan server MySQL dapat diakses dari Streamlit Cloud.
+

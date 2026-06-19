@@ -14,7 +14,7 @@ from src.utils.ui import (
 
 
 st.set_page_config(
-    page_title="Dashboard TAM Bebeong",
+    page_title="Dashboard TAM BEBEONG",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -115,7 +115,7 @@ with st.form("asn_questionnaire_form"):
         <div class="privacy-note">
             Kuesioner ini tidak meminta nama, NIP, email, atau identitas pribadi lainnya.
             Data yang diberikan digunakan khusus untuk kepentingan penelitian dan
-            evaluasi penerimaan layanan Website BEBEONG.
+            evaluasi penerimaan layanan Aplikasi BEBEONG Banjar Super Apps.
         </div>
         """,
         unsafe_allow_html=True,
@@ -147,3 +147,4 @@ with st.form("asn_questionnaire_form"):
             st.rerun()
 
 render_public_footer()
+

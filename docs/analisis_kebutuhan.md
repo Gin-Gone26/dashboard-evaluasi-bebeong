@@ -2,7 +2,7 @@
 
 ## Latar Belakang
 
-Website Bebeong Kota Banjar merupakan layanan e-government yang perlu dievaluasi dari sisi penerimaan pengguna. Penelitian menggunakan Technology Acceptance Model (TAM) dengan tiga variabel utama:
+Aplikasi BEBEONG Banjar Super Apps merupakan layanan e-government yang perlu dievaluasi dari sisi penerimaan pengguna. Penelitian menggunakan Technology Acceptance Model (TAM) dengan tiga variabel utama:
 
 - Perceived Ease of Use (PEOU)
 - Perceived Usefulness (PU)
@@ -51,3 +51,4 @@ Sistem bertujuan menjadi media pengumpulan, pengelolaan, export, dan visualisasi
 - Siap deploy ke Streamlit Cloud.
 - Konfigurasi koneksi database menggunakan secrets agar aman.
 - Antarmuka sederhana agar mudah digunakan oleh ASN dan admin.
+

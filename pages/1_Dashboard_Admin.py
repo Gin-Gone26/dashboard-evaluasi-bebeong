@@ -27,7 +27,7 @@ render_admin_sidebar()
 
 render_admin_page_header(
     "Dashboard Admin",
-    "Ringkasan visual hasil pengumpulan data evaluasi penerimaan ASN terhadap layanan Website BEBEONG.",
+    "Ringkasan visual hasil pengumpulan data evaluasi penerimaan ASN terhadap layanan Aplikasi BEBEONG Banjar Super Apps.",
 )
 
 respondents = get_respondents()
@@ -47,3 +47,4 @@ render_variable_chart(scores)
 
 st.subheader("Distribusi Jawaban Likert")
 render_likert_distribution(questionnaires)
+

@@ -24,7 +24,7 @@ def build_report_html(summary: dict, variable_scores: pd.DataFrame) -> bytes:
     <html lang="id">
     <head>
       <meta charset="utf-8">
-      <title>Laporan Evaluasi TAM Website Bebeong</title>
+      <title>Laporan Evaluasi TAM Aplikasi BEBEONG Banjar Super Apps</title>
       <style>
         body {{ font-family: Arial, sans-serif; margin: 40px; color: #1f2937; }}
         h1 {{ font-size: 24px; }}
@@ -35,7 +35,7 @@ def build_report_html(summary: dict, variable_scores: pd.DataFrame) -> bytes:
       </style>
     </head>
     <body>
-      <h1>Laporan Evaluasi Penerimaan ASN terhadap Website BEBEONG</h1>
+      <h1>Laporan Evaluasi Penerimaan ASN terhadap Aplikasi BEBEONG Banjar Super Apps</h1>
       <p>Penelitian skripsi mandiri dengan metode Technology Acceptance Model (TAM)</p>
       <h2>Ringkasan Data</h2>
       <table>
@@ -55,3 +55,4 @@ def build_report_html(summary: dict, variable_scores: pd.DataFrame) -> bytes:
     </html>
     """
     return html.encode("utf-8")
+

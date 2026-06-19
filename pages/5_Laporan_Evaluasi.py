@@ -28,7 +28,7 @@ render_admin_sidebar()
 
 render_admin_page_header(
     "Laporan Evaluasi",
-    "Ringkasan laporan evaluasi penerimaan ASN terhadap Website BEBEONG berdasarkan data yang telah terkumpul.",
+    "Ringkasan laporan evaluasi penerimaan ASN terhadap Aplikasi BEBEONG Banjar Super Apps berdasarkan data yang telah terkumpul.",
 )
 
 respondents = get_respondents()
@@ -53,7 +53,7 @@ render_variable_chart(scores)
 
 st.subheader("Narasi Laporan")
 st.write(
-    "Dashboard ini menampilkan hasil pengumpulan data penerimaan ASN terhadap Website BEBEONG "
+    "Dashboard ini menampilkan hasil pengumpulan data penerimaan ASN terhadap Aplikasi BEBEONG Banjar Super Apps "
     "berdasarkan variabel TAM: Perceived Ease of Use, Perceived Usefulness, dan Behavioral Intention. "
     "Data yang ditampilkan dapat diekspor dan dianalisis lebih lanjut menggunakan Jamovi."
 )
@@ -65,3 +65,4 @@ st.download_button(
     file_name="laporan_evaluasi_tam_bebeong.html",
     mime="text/html",
 )
+
