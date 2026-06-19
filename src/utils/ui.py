@@ -39,6 +39,36 @@ def apply_responsive_styles(hide_page_navigation: bool = False) -> None:
             color: var(--text);
         }
 
+        section[data-testid="stSidebar"] {
+            background: #ffffff !important;
+            color: var(--text) !important;
+            border-right: 1px solid var(--border);
+        }
+
+        section[data-testid="stSidebar"] *,
+        section[data-testid="stSidebar"] p,
+        section[data-testid="stSidebar"] span,
+        section[data-testid="stSidebar"] label {
+            color: var(--text) !important;
+            -webkit-text-fill-color: currentColor;
+        }
+
+        section[data-testid="stSidebar"] input,
+        section[data-testid="stSidebar"] textarea,
+        section[data-testid="stSidebar"] div[data-baseweb="select"] > div {
+            background: #ffffff !important;
+            color: var(--text) !important;
+            border-color: var(--border) !important;
+            -webkit-text-fill-color: var(--text);
+        }
+
+        section[data-testid="stSidebar"] button {
+            background: #f8fafc !important;
+            color: var(--text) !important;
+            border-color: var(--border) !important;
+            -webkit-text-fill-color: var(--text);
+        }
+
         .block-container {
             max-width: 1120px;
             padding-top: 1.25rem;
