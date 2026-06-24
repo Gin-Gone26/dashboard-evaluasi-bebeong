@@ -12,6 +12,39 @@ from src.utils.ui import (
     render_public_header,
 )
 
+PERANGKAT_DAERAH_OPTIONS = [
+    "SEKRETARIAT DAERAH",
+    "SEKRETARIAT DPRD",
+    "INSPEKTORAT DAERAH",
+    "BADAN PENGELOLAAN KEUANGAN DAN PENDAPATAN DAERAH",
+    "BADAN PERENCANAAN, PENELITIAN DAN PENGEMBANGAN DAERAH",
+    "BADAN KEPEGAWAIAN DAN PENGEMBANGAN SUMBER DAYA MANUSIA",
+    "BADAN PENANGGULANGAN BENCANA DAERAH",
+    "BADAN KESATUAN BANGSA DAN POLITIK",
+    "DINAS PENDIDIKAN DAN KEBUDAYAAN",
+    "DINAS KESEHATAN",
+    "DINAS KETAHANAN PANGAN, PERTANIAN DAN PERIKANAN",
+    "DINAS KOPERASI, USAHA KECIL MENENGAH DAN PERDAGANGAN",
+    "DINAS PEKERJAAN UMUM DAN TATA RUANG",
+    "DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU",
+    "DINAS KEPENDUDUKAN DAN PENCATATAN SIPIL",
+    "DINAS SOSIAL, PEMBERDAYAAN PEREMPUAN DAN PERLINDUNGAN ANAK",
+    "DINAS PENGENDALIAN PENDUDUK DAN KELUARGA BERENCANA",
+    "DINAS PEMUDA DAN OLAHRAGA",
+    "DINAS LINGKUNGAN HIDUP",
+    "DINAS KEARSIPAN DAN PERPUSTAKAAN",
+    "SATUAN POLISI PAMONG PRAJA",
+    "DINAS KOMUNIKASI DAN INFORMATIKA",
+    "DINAS PERHUBUNGAN",
+    "DINAS PEMBERDAYAAN MASYARAKAT DAN DESA",
+    "DINAS TENAGA KERJA",
+    "KECAMATAN BANJAR",
+    "KECAMATAN PATARUMAN",
+    "KECAMATAN LANGENSARI",
+    "KECAMATAN PURWAHARJA",
+    "BADAN LAYANAN UMUM DAERAH RUMAH SAKIT UMUM",
+]
+
 
 st.set_page_config(
     page_title="Dashboard TAM BEBEONG",
@@ -90,7 +123,7 @@ with st.form("asn_questionnaire_form"):
         age = st.number_input("Usia", min_value=18, max_value=65, value=30)
         education = st.selectbox("Pendidikan terakhir", EDUCATION_OPTIONS)
     with col2:
-        work_unit = st.text_input("Unit kerja")
+        work_unit = st.selectbox("Perangkat daerah", PERANGKAT_DAERAH_OPTIONS)
         position_name = st.text_input("Jabatan")
         years_of_service = st.number_input("Masa kerja (tahun)", min_value=0, max_value=45, value=1)
 
@@ -126,9 +159,9 @@ with st.form("asn_questionnaire_form"):
     submitted = st.form_submit_button("Kirim Kuesioner", type="primary")
 
     if submitted:
-        required_fields = [work_unit, position_name]
+        required_fields = [position_name]
         if not all(field.strip() for field in required_fields):
-            st.error("Unit kerja dan jabatan wajib diisi.")
+            st.error("Jabatan wajib diisi.")
         elif any(answer is None for answer in answers.values()):
             st.error("Seluruh pertanyaan kuesioner wajib dijawab.")
         elif not consent:
@@ -137,7 +170,7 @@ with st.form("asn_questionnaire_form"):
             respondent = {
                 "gender": gender,
                 "age": int(age),
-                "work_unit": work_unit.strip(),
+                "work_unit": work_unit,
                 "position_name": position_name.strip(),
                 "education": education,
                 "years_of_service": int(years_of_service),
