@@ -13,6 +13,7 @@ from src.utils.ui import (
 )
 
 PERANGKAT_DAERAH_OPTIONS = [
+    "Pilih Perangkat Daerah",
     "SEKRETARIAT DAERAH",
     "SEKRETARIAT DPRD",
     "INSPEKTORAT DAERAH",
@@ -160,7 +161,9 @@ with st.form("asn_questionnaire_form"):
 
     if submitted:
         required_fields = [position_name]
-        if not all(field.strip() for field in required_fields):
+        if work_unit == "Pilih Perangkat Daerah":
+            st.error("Silakan pilih Perangkat Daerah terlebih dahulu.")
+        elif not all(field.strip() for field in required_fields):
             st.error("Jabatan wajib diisi.")
         elif any(answer is None for answer in answers.values()):
             st.error("Seluruh pertanyaan kuesioner wajib dijawab.")
