@@ -8,6 +8,19 @@ from src.utils.auth import render_admin_sidebar, require_admin
 from src.utils.ui import apply_responsive_styles, render_admin_note, render_admin_page_header, render_database_error, render_filters
 
 
+def safe_int(value, default: int = 0) -> int:
+    try:
+        if value is None or str(value).strip() == "":
+            return default
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def select_index(options: list[str], value, default: int = 0) -> int:
+    return options.index(value) if value in options else default
+
+
 st.set_page_config(page_title="Data Responden", page_icon="👥", layout="wide")
 apply_responsive_styles()
 
@@ -65,22 +78,27 @@ else:
             gender = st.selectbox(
                 "Jenis kelamin",
                 ["Laki-laki", "Perempuan"],
-                index=["Laki-laki", "Perempuan"].index(selected["gender"]),
+                index=select_index(["Laki-laki", "Perempuan"], selected["gender"]),
             )
-            age = st.number_input("Usia", min_value=18, max_value=65, value=int(selected["age"]))
+            age = st.number_input(
+                "Usia",
+                min_value=18,
+                max_value=65,
+                value=min(max(safe_int(selected["age"], 30), 18), 65),
+            )
             education = st.selectbox(
                 "Pendidikan terakhir",
                 EDUCATION_OPTIONS,
-                index=EDUCATION_OPTIONS.index(selected["education"]) if selected["education"] in EDUCATION_OPTIONS else 0,
+                index=select_index(EDUCATION_OPTIONS, selected["education"]),
             )
         with col_b:
-            work_unit = st.text_input("Unit kerja", value=selected["work_unit"])
-            position_name = st.text_input("Jabatan", value=selected["position_name"])
+            work_unit = st.text_input("Unit kerja", value=str(selected["work_unit"] or ""))
+            position_name = st.text_input("Jabatan", value=str(selected["position_name"] or ""))
             years_of_service = st.number_input(
                 "Masa kerja (tahun)",
                 min_value=0,
                 max_value=45,
-                value=int(selected["years_of_service"]),
+                value=min(max(safe_int(selected["years_of_service"], 0), 0), 45),
             )
         save = st.form_submit_button("Simpan Perubahan")
         if save:

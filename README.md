@@ -49,9 +49,14 @@ Tampilan publik dibuat netral sebagai media penelitian pribadi, bukan sebagai ap
 │   └── schema.sql
 ├── docs/
 │   ├── analisis_kebutuhan.md
+│   ├── activity_diagram.md
 │   ├── desain_database.md
 │   ├── erd.md
+│   ├── mockup_antarmuka.md
+│   ├── perancangan_antarmuka.md
+│   ├── sequence_diagram.md
 │   ├── streamlit_pages.md
+│   ├── struktur_menu.md
 │   └── use_case.md
 ├── uploads/
 ├── requirements.txt
