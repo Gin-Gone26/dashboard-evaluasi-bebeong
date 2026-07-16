@@ -48,6 +48,7 @@ erDiagram
         tinyint BI4
         tinyint BI5
         tinyint BI6
+        text suggestion
         timestamp submitted_at
     }
 

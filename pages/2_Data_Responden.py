@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 from src.constants import EDUCATION_OPTIONS
 from src.db import init_database
@@ -19,6 +20,12 @@ def safe_int(value, default: int = 0) -> int:
 
 def select_index(options: list[str], value, default: int = 0) -> int:
     return options.index(value) if value in options else default
+
+
+def safe_text(value) -> str:
+    if value is None or pd.isna(value):
+        return ""
+    return str(value)
 
 
 st.set_page_config(page_title="Data Responden", page_icon="👥", layout="wide")
@@ -92,8 +99,8 @@ else:
                 index=select_index(EDUCATION_OPTIONS, selected["education"]),
             )
         with col_b:
-            work_unit = st.text_input("Unit kerja", value=str(selected["work_unit"] or ""))
-            position_name = st.text_input("Jabatan", value=str(selected["position_name"] or ""))
+            work_unit = st.text_input("Unit kerja", value=safe_text(selected["work_unit"]))
+            position_name = st.text_input("Jabatan (opsional)", value=safe_text(selected["position_name"]))
             years_of_service = st.number_input(
                 "Masa kerja (tahun)",
                 min_value=0,
@@ -108,7 +115,7 @@ else:
                     "gender": gender,
                     "age": int(age),
                     "work_unit": work_unit.strip(),
-                    "position_name": position_name.strip(),
+                    "position_name": position_name.strip() or None,
                     "education": education,
                     "years_of_service": int(years_of_service),
                 },

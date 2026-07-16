@@ -17,6 +17,7 @@ Sistem bertujuan menjadi media pengumpulan, pengelolaan, export, dan visualisasi
 1. ASN
    - Mengisi data umum responden tanpa identitas pribadi.
    - Mengisi 20 pertanyaan kuesioner TAM.
+   - Mengisi saran atau masukan secara opsional.
    - Mengirim jawaban.
 
 2. Admin
@@ -32,7 +33,9 @@ Sistem bertujuan menjadi media pengumpulan, pengelolaan, export, dan visualisasi
 ## Kebutuhan Fungsional
 
 - Sistem menyediakan form data umum responden tanpa nama, NIP, email, atau identitas pribadi.
+- Sistem menyediakan field jabatan yang bersifat opsional.
 - Sistem menyediakan form kuesioner TAM skala Likert 1-5.
+- Sistem menyediakan field saran atau masukan yang bersifat opsional.
 - Sistem menyimpan data ke database MySQL.
 - Sistem menyediakan autentikasi admin.
 - Sistem menyediakan tabel responden dan tabel jawaban kuesioner.

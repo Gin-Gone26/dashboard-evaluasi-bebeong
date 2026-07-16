@@ -8,7 +8,8 @@ flowchart LR
 
     ASN --> UC1["Mengisi data umum responden"]
     ASN --> UC2["Mengisi kuesioner TAM"]
-    ASN --> UC3["Mengirim jawaban"]
+    ASN --> UC3["Mengisi saran opsional"]
+    ASN --> UC12["Mengirim jawaban"]
 
     Admin --> UC4["Login"]
     Admin --> UC5["Melihat dashboard visualisasi"]
@@ -22,6 +23,7 @@ flowchart LR
     UC1 --> Sistem
     UC2 --> Sistem
     UC3 --> Sistem
+    UC12 --> Sistem
     UC4 --> Sistem
     UC5 --> Sistem
     UC6 --> Sistem
@@ -37,8 +39,9 @@ flowchart LR
 1. ASN membuka aplikasi.
 2. ASN mengisi data umum tanpa nama, NIP, email, atau identitas pribadi.
 3. ASN mengisi 20 item kuesioner TAM.
-4. ASN menekan tombol kirim.
-5. Sistem menyimpan data umum responden dan jawaban ke MySQL.
+4. ASN mengisi saran atau masukan jika diperlukan.
+5. ASN menekan tombol kirim.
+6. Sistem menyimpan data umum responden, jawaban, dan saran opsional ke MySQL.
 
 ## Skenario Utama Admin
 

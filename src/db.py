@@ -50,7 +50,7 @@ def init_database() -> None:
           gender ENUM('Laki-laki', 'Perempuan') NOT NULL,
           age INT NOT NULL,
           work_unit VARCHAR(150) NOT NULL,
-          position_name VARCHAR(120) NOT NULL,
+          position_name VARCHAR(120) NULL,
           education VARCHAR(50) NOT NULL,
           years_of_service INT NOT NULL,
           created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -68,6 +68,7 @@ def init_database() -> None:
           PU6 TINYINT NOT NULL, PU7 TINYINT NOT NULL, BI1 TINYINT NOT NULL,
           BI2 TINYINT NOT NULL, BI3 TINYINT NOT NULL, BI4 TINYINT NOT NULL,
           BI5 TINYINT NOT NULL, BI6 TINYINT NOT NULL,
+          suggestion TEXT NULL,
           submitted_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
           CONSTRAINT fk_questionnaires_respondents
             FOREIGN KEY (respondent_id) REFERENCES respondents(id)
@@ -96,6 +97,7 @@ def init_database() -> None:
             conn.execute(text(statement))
 
     migrate_private_respondent_columns()
+    migrate_optional_position_and_suggestion()
     ensure_default_admin()
 
 
@@ -164,6 +166,16 @@ def migrate_private_respondent_columns() -> None:
         for column_name in ("full_name", "nip", "email"):
             if _column_exists(conn, "respondents", column_name):
                 conn.execute(text(f"ALTER TABLE respondents DROP COLUMN {column_name}"))
+
+
+def migrate_optional_position_and_suggestion() -> None:
+    """Keep older databases compatible with the current anonymous questionnaire form."""
+    engine = get_engine()
+    with engine.begin() as conn:
+        if _column_exists(conn, "respondents", "position_name"):
+            conn.execute(text("ALTER TABLE respondents MODIFY position_name VARCHAR(120) NULL"))
+        if not _column_exists(conn, "questionnaires", "suggestion"):
+            conn.execute(text("ALTER TABLE questionnaires ADD COLUMN suggestion TEXT NULL AFTER BI6"))
 
 
 def check_database_connection() -> tuple[bool, str]:

@@ -10,8 +10,9 @@ flowchart TD
     B --> B1["Informasi Penelitian"]
     B --> B2["Data Umum Responden"]
     B --> B3["Kuesioner TAM"]
-    B --> B4["Persetujuan Responden"]
-    B --> B5["Kirim Kuesioner"]
+    B --> B4["Saran atau Masukan"]
+    B --> B5["Persetujuan Responden"]
+    B --> B6["Kirim Kuesioner"]
 
     C --> D["Dashboard Admin"]
     D --> D1["Statistik Responden"]

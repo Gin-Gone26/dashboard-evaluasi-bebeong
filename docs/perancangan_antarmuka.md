@@ -13,6 +13,7 @@ Komponen utama halaman responden:
 - Petunjuk pengisian.
 - Form data umum responden.
 - Form kuesioner TAM.
+- Field saran atau masukan opsional.
 - Persetujuan responden.
 - Tombol kirim kuesioner.
 - Pesan berhasil atau pesan kesalahan.
@@ -57,9 +58,11 @@ Komponen utama halaman Data Responden:
 - Form edit data responden.
 - Tombol hapus data responden.
 
+Pada halaman ini, jabatan responden bersifat opsional sehingga admin dapat menyimpan data responden walaupun field jabatan tidak diisi.
+
 ## Halaman Hasil Kuesioner
 
-Halaman Hasil Kuesioner digunakan untuk menampilkan jawaban kuesioner TAM yang telah dikirim oleh responden. Admin dapat memfilter data, melihat tabel hasil kuesioner, melihat ringkasan rata-rata variabel, dan mengekspor data ke format CSV atau Excel. File export tersebut digunakan sebagai bahan analisis lanjutan di Jamovi.
+Halaman Hasil Kuesioner digunakan untuk menampilkan jawaban kuesioner TAM yang telah dikirim oleh responden. Admin dapat memfilter data, melihat tabel hasil kuesioner, melihat ringkasan rata-rata variabel, dan mengekspor data ke format CSV atau Excel. File export tersebut digunakan sebagai bahan analisis lanjutan di Jamovi. Saran atau masukan responden ditampilkan sebagai data teks tambahan dan tidak digunakan dalam perhitungan rata-rata variabel TAM.
 
 Komponen utama halaman Hasil Kuesioner:
 
@@ -68,6 +71,7 @@ Komponen utama halaman Hasil Kuesioner:
 - Tombol export Excel untuk Jamovi.
 - Grafik rata-rata variabel TAM.
 - Tabel hasil kuesioner.
+- Kolom saran atau masukan responden.
 
 ## Halaman Upload Jamovi
 

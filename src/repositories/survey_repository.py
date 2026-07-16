@@ -18,15 +18,22 @@ def create_submission(respondent: dict, answers: dict) -> int:
     answer_values = ", ".join(f":{column}" for column in QUESTION_COLUMNS)
     questionnaire_query = text(
         f"""
-        INSERT INTO questionnaires (respondent_id, {answer_columns})
-        VALUES (:respondent_id, {answer_values})
+        INSERT INTO questionnaires (respondent_id, {answer_columns}, suggestion)
+        VALUES (:respondent_id, {answer_values}, :suggestion)
         """
     )
 
     with get_engine().begin() as conn:
         result = conn.execute(respondent_query, respondent)
         respondent_id = result.lastrowid
-        conn.execute(questionnaire_query, {"respondent_id": respondent_id, **answers})
+        conn.execute(
+            questionnaire_query,
+            {
+                "respondent_id": respondent_id,
+                **answers,
+                "suggestion": respondent.get("suggestion"),
+            },
+        )
         return respondent_id
 
 
@@ -97,6 +104,7 @@ def get_questionnaires(filters: dict | None = None) -> pd.DataFrame:
             r.education,
             r.years_of_service,
             q.{", q.".join(QUESTION_COLUMNS)},
+            q.suggestion,
             ROUND((q.PEOU1 + q.PEOU2 + q.PEOU3 + q.PEOU4 + q.PEOU5 + q.PEOU6 + q.PEOU7) / 7, 2) AS peou_avg,
             ROUND((q.PU1 + q.PU2 + q.PU3 + q.PU4 + q.PU5 + q.PU6 + q.PU7) / 7, 2) AS pu_avg,
             ROUND((q.BI1 + q.BI2 + q.BI3 + q.BI4 + q.BI5 + q.BI6) / 6, 2) AS bi_avg,

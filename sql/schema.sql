@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS respondents (
   gender ENUM('Laki-laki', 'Perempuan') NOT NULL,
   age INT NOT NULL,
   work_unit VARCHAR(150) NOT NULL,
-  position_name VARCHAR(120) NOT NULL,
+  position_name VARCHAR(120) NULL,
   education VARCHAR(50) NOT NULL,
   years_of_service INT NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS questionnaires (
   BI4 TINYINT NOT NULL,
   BI5 TINYINT NOT NULL,
   BI6 TINYINT NOT NULL,
+  suggestion TEXT NULL,
   submitted_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_questionnaires_respondents
     FOREIGN KEY (respondent_id) REFERENCES respondents(id)
@@ -94,6 +95,7 @@ SELECT
   r.gender,
   r.work_unit,
   r.position_name,
+  q.suggestion,
   q.submitted_at,
   ROUND((PEOU1 + PEOU2 + PEOU3 + PEOU4 + PEOU5 + PEOU6 + PEOU7) / 7, 2) AS peou_avg,
   ROUND((PU1 + PU2 + PU3 + PU4 + PU5 + PU6 + PU7) / 7, 2) AS pu_avg,

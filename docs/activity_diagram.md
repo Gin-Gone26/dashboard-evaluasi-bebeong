@@ -8,20 +8,21 @@ flowchart TD
     B --> C[Membaca informasi penelitian]
     C --> D[Mengisi data umum responden]
     D --> E[Mengisi kuesioner TAM]
-    E --> F[Mencentang persetujuan responden]
-    F --> G{Data lengkap?}
+    E --> F[Mengisi saran atau masukan opsional]
+    F --> G[Mencentang persetujuan responden]
+    G --> H{Data lengkap?}
 
-    G -- Tidak --> H[Menampilkan pesan kesalahan]
-    H --> D
+    H -- Tidak --> I[Menampilkan pesan kesalahan]
+    I --> D
 
-    G -- Ya --> I[Mengirim jawaban]
-    I --> J[Menyimpan data umum responden]
-    J --> K[Menyimpan hasil kuesioner TAM]
-    K --> L[Menampilkan pesan berhasil]
-    L --> M([Selesai])
+    H -- Ya --> J[Mengirim jawaban]
+    J --> K[Menyimpan data umum responden]
+    K --> L[Menyimpan hasil kuesioner TAM dan saran opsional]
+    L --> M[Menampilkan pesan berhasil]
+    M --> N([Selesai])
 ```
 
-Activity diagram ASN menggambarkan alur responden dalam menggunakan dashboard kuesioner. Proses dimulai ketika ASN mengakses dashboard, membaca informasi penelitian, mengisi data umum tanpa mencantumkan identitas pribadi, mengisi kuesioner TAM, memberikan persetujuan, dan mengirim jawaban. Sistem memvalidasi kelengkapan data. Jika data belum lengkap, sistem menampilkan pesan kesalahan. Jika data lengkap, sistem menyimpan data umum responden dan hasil kuesioner ke database MySQL.
+Activity diagram ASN menggambarkan alur responden dalam menggunakan dashboard kuesioner. Proses dimulai ketika ASN mengakses dashboard, membaca informasi penelitian, mengisi data umum tanpa mencantumkan identitas pribadi, mengisi kuesioner TAM, mengisi saran atau masukan secara opsional, memberikan persetujuan, dan mengirim jawaban. Sistem memvalidasi kelengkapan data. Jika data belum lengkap, sistem menampilkan pesan kesalahan. Jika data lengkap, sistem menyimpan data umum responden, hasil kuesioner, dan saran opsional ke database MySQL.
 
 ## Activity Diagram Admin
 

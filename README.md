@@ -10,6 +10,7 @@ Aplikasi ini dibuat dengan Python Streamlit dan MySQL. Dashboard berfungsi untuk
 
 - Pengisian data umum responden tanpa nama, NIP, email, atau identitas pribadi.
 - Pengisian kuesioner TAM skala Likert 1-5.
+- Pengisian saran atau masukan secara opsional.
 - Penyimpanan data responden dan jawaban ke MySQL.
 - Pengelolaan data oleh admin.
 - Filter, visualisasi, dan export data Excel/CSV.

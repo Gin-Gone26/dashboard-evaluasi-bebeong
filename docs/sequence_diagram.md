@@ -14,10 +14,11 @@ sequenceDiagram
 
     ASN->>Antarmuka: Mengisi data umum responden
     ASN->>Antarmuka: Mengisi jawaban kuesioner TAM
+    ASN->>Antarmuka: Mengisi saran atau masukan opsional
     ASN->>Antarmuka: Memberikan persetujuan responden
     ASN->>Antarmuka: Mengirim kuesioner
 
-    Antarmuka->>Sistem: Mengirim data responden dan jawaban kuesioner
+    Antarmuka->>Sistem: Mengirim data responden, jawaban kuesioner, dan saran opsional
     Sistem->>Sistem: Melakukan validasi kelengkapan data
 
     alt Data belum lengkap
@@ -26,14 +27,14 @@ sequenceDiagram
     else Data lengkap
         Sistem->>Database: Menyimpan data umum responden
         Database-->>Sistem: Mengirim ID responden
-        Sistem->>Database: Menyimpan jawaban kuesioner TAM
+        Sistem->>Database: Menyimpan jawaban kuesioner TAM dan saran opsional
         Database-->>Sistem: Mengirim status penyimpanan berhasil
         Sistem-->>Antarmuka: Mengirim status pengiriman berhasil
         Antarmuka-->>ASN: Menampilkan pesan berhasil
     end
 ```
 
-Sequence diagram ASN menggambarkan interaksi antara ASN, antarmuka dashboard, sistem aplikasi, dan database MySQL. Setelah ASN mengisi data dan mengirim kuesioner, sistem melakukan validasi. Jika data lengkap, sistem menyimpan data umum responden dan jawaban kuesioner ke database.
+Sequence diagram ASN menggambarkan interaksi antara ASN, antarmuka dashboard, sistem aplikasi, dan database MySQL. Setelah ASN mengisi data, jawaban kuesioner, saran opsional, dan mengirim kuesioner, sistem melakukan validasi. Jika data lengkap, sistem menyimpan data umum responden, jawaban kuesioner, dan saran opsional ke database.
 
 ## Sequence Diagram Admin
 

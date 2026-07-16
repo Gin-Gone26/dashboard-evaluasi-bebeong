@@ -49,6 +49,7 @@ classDiagram
         +tinyint BI4
         +tinyint BI5
         +tinyint BI6
+        +text suggestion
         +timestamp submitted_at
     }
 
@@ -85,13 +86,14 @@ classDiagram
 | `gender` | Jenis kelamin responden. |
 | `age` | Usia responden. |
 | `work_unit` | Unit kerja responden. |
-| `position_name` | Jabatan responden. |
+| `position_name` | Jabatan responden dan bersifat opsional. |
 | `education` | Pendidikan terakhir responden. |
 | `years_of_service` | Masa kerja responden dalam tahun. |
 | `respondent_id` | Foreign key yang menghubungkan tabel `questionnaires` dengan `respondents`. |
 | `PU1` sampai `PU7` | Jawaban kuesioner variabel Perceived Usefulness. |
 | `PEOU1` sampai `PEOU7` | Jawaban kuesioner variabel Perceived Ease of Use. |
 | `BI1` sampai `BI6` | Jawaban kuesioner variabel Behavioral Intention. |
+| `suggestion` | Saran atau masukan opsional dari responden. |
 | `submitted_at` | Waktu pengiriman kuesioner. |
 | `title` | Judul file hasil analisis Jamovi. |
 | `description` | Catatan file hasil analisis Jamovi. |
@@ -121,7 +123,7 @@ classDiagram
 | `gender` | ENUM('Laki-laki', 'Perempuan') | Jenis kelamin responden |
 | `age` | INT | Usia responden |
 | `work_unit` | VARCHAR(150) | Unit kerja responden |
-| `position_name` | VARCHAR(120) | Jabatan responden |
+| `position_name` | VARCHAR(120) NULL | Jabatan responden dan bersifat opsional |
 | `education` | VARCHAR(50) | Pendidikan terakhir responden |
 | `years_of_service` | INT | Masa kerja responden dalam tahun |
 | `created_at` | TIMESTAMP | Waktu data dibuat |
@@ -136,6 +138,7 @@ classDiagram
 | `PU1` - `PU7` | TINYINT | Jawaban variabel Perceived Usefulness skala 1-5 |
 | `PEOU1` - `PEOU7` | TINYINT | Jawaban variabel Perceived Ease of Use skala 1-5 |
 | `BI1` - `BI6` | TINYINT | Jawaban variabel Behavioral Intention skala 1-5 |
+| `suggestion` | TEXT NULL | Saran atau masukan opsional dari responden |
 | `submitted_at` | TIMESTAMP | Waktu kuesioner dikirim |
 
 ### Tabel `jamovi_uploads`

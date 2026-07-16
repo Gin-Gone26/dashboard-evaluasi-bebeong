@@ -7,6 +7,7 @@ Halaman publik untuk ASN:
 - Informasi ringkas penelitian.
 - Form data umum responden tanpa identitas pribadi.
 - Form kuesioner TAM.
+- Form saran atau masukan opsional.
 - Tombol kirim jawaban.
 - Login admin di sidebar.
 
@@ -32,6 +33,7 @@ Halaman publik untuk ASN:
 - Filter data.
 - Export CSV dan Excel.
 - Ringkasan rata-rata variabel.
+- Kolom saran atau masukan responden.
 
 ## `pages/4_Upload_Jamovi.py`
 

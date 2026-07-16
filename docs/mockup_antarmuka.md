@@ -28,7 +28,7 @@ Mockup berikut menggambarkan rancangan antarmuka sistem dashboard evaluasi pener
 | +-------------------------------+ +------------------------------------+ |
 | | Jenis Kelamin                 | | Unit Kerja                         | |
 | +-------------------------------+ +------------------------------------+ |
-| | Usia                          | | Jabatan                            | |
+| | Usia                          | | Jabatan (opsional)                 | |
 | +-------------------------------+ +------------------------------------+ |
 | | Pendidikan Terakhir           | | Masa Kerja                         | |
 | +-------------------------------+ +------------------------------------+ |
@@ -47,6 +47,11 @@ Mockup berikut menggambarkan rancangan antarmuka sistem dashboard evaluasi pener
 | BI - Behavioral Intention                                                |
 | BI1. Pernyataan kuesioner                                                |
 | ( ) 1 Sangat Tidak Setuju  ( ) 2  ( ) 3  ( ) 4  ( ) 5 Sangat Setuju      |
++--------------------------------------------------------------------------+
+
++--------------------------------------------------------------------------+
+| Saran atau Masukan (Opsional)                                            |
+| [ .................................................................... ] |
 +--------------------------------------------------------------------------+
 
 +--------------------------------------------------------------------------+
@@ -126,7 +131,7 @@ Mockup berikut menggambarkan rancangan antarmuka sistem dashboard evaluasi pener
 
 +--------------------------------------------------------------------------+
 | Tabel Hasil Kuesioner                                                    |
-| questionnaire_id | respondent_id | PU1 | PU2 | ... | PEOU1 | ... | BI6    |
+| questionnaire_id | respondent_id | PU1 | ... | BI6 | suggestion           |
 +--------------------------------------------------------------------------+
 ```
 

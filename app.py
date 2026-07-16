@@ -125,7 +125,7 @@ with st.form("asn_questionnaire_form"):
         education = st.selectbox("Pendidikan terakhir", EDUCATION_OPTIONS)
     with col2:
         work_unit = st.selectbox("Perangkat daerah", PERANGKAT_DAERAH_OPTIONS)
-        position_name = st.text_input("Jabatan")
+        position_name = st.text_input("Jabatan (opsional)")
         years_of_service = st.number_input("Masa kerja (tahun)", min_value=0, max_value=45, value=1)
 
     st.subheader("Kuesioner TAM")
@@ -144,6 +144,11 @@ with st.form("asn_questionnaire_form"):
                 key=question_code,
             )
 
+    suggestion = st.text_area(
+        "Saran atau masukan (opsional)",
+        help="Isi jika ada saran untuk pengembangan atau perbaikan Aplikasi BEBEONG Banjar Super Apps.",
+    )
+
     st.markdown(
         """
         <div class="privacy-note">
@@ -160,11 +165,8 @@ with st.form("asn_questionnaire_form"):
     submitted = st.form_submit_button("Kirim Kuesioner", type="primary")
 
     if submitted:
-        required_fields = [position_name]
         if work_unit == "Pilih Perangkat Daerah":
             st.error("Silakan pilih Perangkat Daerah terlebih dahulu.")
-        elif not all(field.strip() for field in required_fields):
-            st.error("Jabatan wajib diisi.")
         elif any(answer is None for answer in answers.values()):
             st.error("Seluruh pertanyaan kuesioner wajib dijawab.")
         elif not consent:
@@ -174,9 +176,10 @@ with st.form("asn_questionnaire_form"):
                 "gender": gender,
                 "age": int(age),
                 "work_unit": work_unit,
-                "position_name": position_name.strip(),
+                "position_name": position_name.strip() or None,
                 "education": education,
                 "years_of_service": int(years_of_service),
+                "suggestion": suggestion.strip() or None,
             }
             create_submission(respondent, answers)
             st.session_state["questionnaire_submitted"] = True
